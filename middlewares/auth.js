@@ -1,4 +1,4 @@
-const VALID_AUTH = 'VGVzdGU6bG85OzhxNjdld2ZyZ3RydGY'
+const VALID_AUTH = 'VGVzdGU6bG85OzhxNjdld2ZyZ3RydGY='
 
 const authMiddleware = (req, res, next) => {
   const { authorization } = req.headers
