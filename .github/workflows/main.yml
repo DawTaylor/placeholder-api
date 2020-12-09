@@ -1,4 +1,4 @@
-name: Tests
+name: CI
 on: push
 jobs:
   build:
@@ -9,3 +9,5 @@ jobs:
         run: yarn
       - name: Run tests
         run: yarn test
+      - name: Run ESLint
+        run: eslint . --ext .js,.jsx,.ts,.tsx
