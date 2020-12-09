@@ -4,8 +4,11 @@ const PORT = process.env.PORT || 9999;
 const { similarRouter } = require('./routes/similar');
 const { productRouter } = require('./routes/product');
 const { authMiddleware } = require('./middlewares/auth');
+const { logger } = require('./middlewares/logger')
 
 const app = new Express();
+
+app.use(logger)
 
 app.get('/', (_, res) => res.json({ status: 'ok' }));
 
