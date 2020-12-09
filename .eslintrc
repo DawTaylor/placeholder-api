@@ -1,0 +1,3 @@
+{
+  "extends": ["@common-core/eslint-config"]
+}
