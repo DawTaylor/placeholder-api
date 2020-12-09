@@ -1,19 +1,15 @@
 const Express = require('express');
-const PORT = process.env.PORT || 9999;
 
 const { similarRouter } = require('./routes/similar');
 const { productRouter } = require('./routes/product');
 const { authMiddleware } = require('./middlewares/auth');
-const { logger } = require('./middlewares/logger')
 
 const app = new Express();
 
-app.use(logger)
-
 app.get('/', (_, res) => res.json({ status: 'ok' }));
 
-app.use(authMiddleware)
+app.use(authMiddleware);
 app.use(similarRouter);
 app.use(productRouter);
 
-module.exports = app
+module.exports = app;
