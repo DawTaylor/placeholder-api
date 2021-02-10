@@ -15,18 +15,18 @@ similarRouter.post('/similar/:productId', (req, res) => {
   const { price, candidateProductId: sku } = req.body;
   const { limit } = req.query;
 
+  if (!price) {
+    return res.status(404).end();
+  }
+
   const conditions = filter(Boolean, { price, sku });
 
   const isSimilar = ensureSimilar(conditions);
 
   const validProducts = mocks.filter(isSimilar);
 
-  if (!validProducts.length) {
-    return res.status(404).end();
-  }
-
   if (limit && limit < validProducts.length) {
-    const limitedQuantityProducts = validProducts.slice(limit);
+    const limitedQuantityProducts = validProducts.slice(0, limit);
     return res.json({ similar: limitedQuantityProducts });
   }
 
