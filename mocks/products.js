@@ -40,7 +40,7 @@ module.exports = [{
     630509365814: 0,
   },
   image: 'http://rihappyhomolog.vteximg.com.br/arquivos/ids/288928-90-90/50372843-50372843-b1169-conjunto-play-doh-multi-ferramentas-hasbro.jpg?v=636668486085970000',
-  price: 71.99,
+  price: 61.99,
   width: 22,
   height: 20,
   length: 5,
