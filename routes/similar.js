@@ -1,28 +1,36 @@
 const Express = require('express');
+const {
+  whereEq, filter,
+} = require('ramda');
 
 const { Router } = Express;
 
 const mocks = require('../mocks/products.js');
-const validProducts = require('../mocks/validProducts');
 
 const similarRouter = new Router();
 
-similarRouter.get('/similar/:productId', (req, res) => {
-  const { productId } = req.params;
+const ensureSimilar = (conditions) => whereEq(conditions);
+
+similarRouter.post('/similar/:productId', (req, res) => {
+  const { price, candidateProductId: sku } = req.body;
   const { limit } = req.query;
 
-  if (!validProducts.includes(productId)) {
+  if (!price) {
     return res.status(404).end();
   }
 
-  const products = mocks[productId] || [];
+  const conditions = filter(Boolean, { price, sku });
 
-  if (limit && limit < products.length) {
-    const limitedQuantityProducts = products.slice(limit);
+  const isSimilar = ensureSimilar(conditions);
+
+  const validProducts = mocks.filter(isSimilar);
+
+  if (limit && limit < validProducts.length) {
+    const limitedQuantityProducts = validProducts.slice(0, limit);
     return res.json({ similar: limitedQuantityProducts });
   }
 
-  return res.json({ similar: products });
+  return res.json({ similar: validProducts });
 });
 
 module.exports = { similarRouter };
